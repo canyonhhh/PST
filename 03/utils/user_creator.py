@@ -4,12 +4,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import random
 import string
+import tempfile
+from selenium.webdriver.chrome.options import Options
 
 def generate_random_email():
     return ''.join(random.choices(string.ascii_lowercase, k=8)) + "@testmail.com"
 
 def create_user():
-    driver = webdriver.Chrome()
+    temp_user_data_dir = tempfile.mkdtemp()
+    
+    chrome_options = Options()
+    chrome_options.add_argument(f"--user-data-dir={temp_user_data_dir}")
+    
+    driver = webdriver.Chrome(options=chrome_options)
     try:
         driver.get("https://demowebshop.tricentis.com/")
         wait = WebDriverWait(driver, 10)
