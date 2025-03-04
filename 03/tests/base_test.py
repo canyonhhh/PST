@@ -15,6 +15,8 @@ class BaseTest(unittest.TestCase):
         
         chrome_options = Options()
         chrome_options.add_argument(f"--user-data-dir={temp_user_data_dir}")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--headless")
         
         self.driver = webdriver.Chrome(options=chrome_options)
         self.driver.get("https://demowebshop.tricentis.com/")
